@@ -52,3 +52,16 @@ if uploaded_resume and job_description:
 
     st.subheader("AI Suggestions")
     st.write(suggestions)
+
+
+try:
+    suggestions = get_suggestions(
+        resume_text,
+        job_description
+    )
+
+    st.subheader("AI Suggestions")
+    st.write(suggestions)
+
+except Exception as e:
+    st.error(f"Gemini Error: {str(e)}")

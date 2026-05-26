@@ -1,8 +1,15 @@
 import google.generativeai as genai
 
-genai.configure(api_key="AIzaSyCWyeVBgR48pLoFd-A7Q8e9cVsUIU5KBV0")
+from dotenv import load_dotenv
+import os
 
-model = genai.GenerativeModel("gemini-1.5-flash")
+load_dotenv()
+
+genai.configure(
+    api_key=os.getenv("GOOGLE_API_KEY")
+)
+
+model = genai.GenerativeModel("gemini-2.5-flash")
 
 def get_suggestions(resume, jd):
 

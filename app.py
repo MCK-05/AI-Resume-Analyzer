@@ -1,9 +1,12 @@
 import streamlit as st
-
+import matplotlib.pyplot as plt
 from utils.parser import extract_text
 from utils.matcher import extract_skills
 from utils.matcher import calculate_match
 from utils.ai_helper import get_suggestions
+from utils.ats import calculate_ats_score
+from utils.resume_checker import check_resume_sections
+from utils.report_generator import create_report
 
 st.title("AI Resume Analyzer")
 
@@ -19,6 +22,15 @@ job_description = st.text_area(
 if uploaded_resume and job_description:
 
     resume_text = extract_text(uploaded_resume)
+
+    ats_score = calculate_ats_score(
+    resume_text,
+    job_description
+    )
+
+    st.subheader("ATS Score")
+
+    st.success(f"{ats_score}%")
 
     resume_skills = extract_skills(resume_text)
 
@@ -49,10 +61,62 @@ if uploaded_resume and job_description:
         resume_text,
         job_description
     )
+    
+    matched = len(
+    set(resume_skills) &
+    set(jd_skills)
+    )
+
+    missing = len(
+    set(jd_skills) -
+    set(resume_skills)
+    )
+
+    fig, ax = plt.subplots()
+
+    ax.bar(
+    ["Matched", "Missing"],
+    [matched, missing]
+    )
+
+    st.subheader("Skill Match Dashboard")
+
+    st.pyplot(fig)
+
+    sections = check_resume_sections(
+    resume_text
+    )
+
+    st.subheader(
+    "Resume Completeness"
+    )
+
+    for section, present in sections.items():
+
+        if present:
+            st.success(f"{section} ✓")
+        else:
+            st.error(f"{section} ✗")
 
     st.subheader("AI Suggestions")
     st.write(suggestions)
 
+    report_path = create_report(
+    ats_score,
+    score,
+    missing
+    )
+
+    with open(
+            report_path,
+            "rb"
+    ) as file:
+
+        st.download_button(
+            "Download Report",
+            file,
+            "Resume_Report.pdf"
+        )
 
 try:
     suggestions = get_suggestions(

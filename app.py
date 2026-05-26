@@ -30,8 +30,12 @@ if uploaded_resume and job_description:
 
     st.subheader("ATS Score")
 
-    st.success(f"{ats_score}%")
-
+    st.metric(
+    "ATS Score",
+    f"{ats_score}%"
+    )
+    st.progress(int(ats_score))
+    
     resume_skills = extract_skills(resume_text)
 
     jd_skills = extract_skills(job_description)
@@ -48,7 +52,10 @@ if uploaded_resume and job_description:
     st.write(jd_skills)
 
     st.subheader("Match Score")
-    st.success(f"{score}%")
+    st.metric(
+    "Skill Match Score",
+    f"{score}%"
+    )
 
     missing = list(
         set(jd_skills)-set(resume_skills)

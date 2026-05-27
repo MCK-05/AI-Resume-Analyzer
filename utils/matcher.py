@@ -1,17 +1,45 @@
 skills_database = [
+
     "python",
     "java",
-    "spring boot",
+    "c",
+    "c++",
+
+    "sql",
     "mysql",
+    "postgresql",
+
     "html",
     "css",
     "javascript",
+
+    "react",
+    "nodejs",
+
+    "spring boot",
+
+    "git",
+    "github",
+
     "aws",
     "docker",
-    "git",
-    "react",
+
+    "etl",
+    "data analysis",
     "power bi",
-    "machine learning"
+
+    "spark",
+    "pyspark",
+
+    "apache airflow",
+
+    "machine learning",
+    "deep learning",
+    "nlp",
+
+    "tensorflow",
+    "pandas",
+    "numpy"
 ]
 
 def extract_skills(text):

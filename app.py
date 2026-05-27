@@ -69,21 +69,25 @@ if uploaded_resume and job_description:
         job_description
     )
     
-    matched = len(
+    matched_skills = list(
     set(resume_skills) &
     set(jd_skills)
     )
 
-    missing = len(
+    missing_skills = list(
     set(jd_skills) -
     set(resume_skills)
     )
 
+    matched_count = len(matched_skills)
+
+    missing_count = len(missing_skills)
+
     fig, ax = plt.subplots()
 
     ax.bar(
-    ["Matched", "Missing"],
-    [matched, missing]
+    ["Matched","Missing"],
+    [matched_count, missing_count]
     )
 
     st.subheader("Skill Match Dashboard")
@@ -111,9 +115,8 @@ if uploaded_resume and job_description:
     report_path = create_report(
     ats_score,
     score,
-    missing
+    missing_skills
     )
-
     with open(
             report_path,
             "rb"

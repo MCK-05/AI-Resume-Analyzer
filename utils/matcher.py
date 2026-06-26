@@ -1,46 +1,9 @@
-skills_database = [
+import pandas as pd
 
-    "python",
-    "java",
-    "c",
-    "c++",
+skills_database = pd.read_csv(
+    "data/skills.csv"
+)["skill"].tolist()
 
-    "sql",
-    "mysql",
-    "postgresql",
-
-    "html",
-    "css",
-    "javascript",
-
-    "react",
-    "nodejs",
-
-    "spring boot",
-
-    "git",
-    "github",
-
-    "aws",
-    "docker",
-
-    "etl",
-    "data analysis",
-    "power bi",
-
-    "spark",
-    "pyspark",
-
-    "apache airflow",
-
-    "machine learning",
-    "deep learning",
-    "nlp",
-
-    "tensorflow",
-    "pandas",
-    "numpy"
-]
 
 def extract_skills(text):
 
@@ -50,15 +13,8 @@ def extract_skills(text):
 
     for skill in skills_database:
 
-        if skill in text:
+        if skill.lower() in text:
+
             found_skills.append(skill)
 
-    return found_skills
-
-def calculate_match(resume_skills, jd_skills):
-
-    matched = set(resume_skills) & set(jd_skills)
-
-    score = (len(matched) / len(jd_skills)) * 100
-
-    return round(score,2)
+    return list(set(found_skills))

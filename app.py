@@ -7,6 +7,7 @@ from utils.ai_helper import get_suggestions
 from utils.ats import calculate_ats_score
 from utils.resume_checker import check_resume_sections
 from utils.report_generator import create_report
+from utils.ats_breakdown import ats_breakdown
 
 st.title("AI Resume Analyzer")
 
